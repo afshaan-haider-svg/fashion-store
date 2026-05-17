@@ -2,16 +2,23 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "M.A Premium Wear | Ladies Lawn Collection",
+  title: "The Libas Studio | Luxury Lawn Wear",
   description:
-    "Premium two piece and three piece ladies lawn suits with WhatsApp ordering.",
+    "Explore premium two piece and three piece lawn collections with elegant Pakistani fashion and WhatsApp ordering.",
+
   keywords: [
-    "M.A Premium Wear",
-    "Ladies Lawn Suits",
-    "Two Piece Lawn",
-    "Three Piece Lawn",
-    "Pakistan Fashion",
+    "The Libas Studio",
+    "Luxury Lawn Wear",
+    "Pakistani Fashion",
+    "2 Piece Lawn Suit",
+    "3 Piece Lawn Suit",
+    "Ladies Boutique",
+    "Designer Lawn Collection",
   ],
+
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -21,7 +28,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-[#FAF7F2] text-[#1E1E1E]">
+        {children}
+      </body>
     </html>
   );
 }
