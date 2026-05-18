@@ -43,17 +43,19 @@ export default function Home() {
       <Navbar />
 
       <section className="relative bg-[#FAF7F2] overflow-hidden">
-  <div className="relative">
+  <div>
     <img
       src="/banners/hero-banner.jpg"
       alt="The Libas Studio"
       className="w-full h-auto block"
     />
+  </div>
 
-    <div className="absolute bottom-5 left-5 md:bottom-12 md:left-10 flex flex-col gap-3 md:gap-4">
+  <div className="px-4 py-5 bg-[#FAF7F2]">
+    <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
       <Link
         href="/products"
-        className="bg-[#C8A96B] text-[#1E1E1E] px-7 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-bold shadow-xl"
+        className="text-center bg-[#C8A96B] text-[#1E1E1E] px-4 py-3 rounded-full text-sm font-bold shadow-md"
       >
         Shop Collection
       </Link>
@@ -61,7 +63,7 @@ export default function Home() {
       <a
         href="https://wa.me/923057792102"
         target="_blank"
-        className="bg-green-600 text-white px-7 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-bold shadow-xl"
+        className="text-center bg-green-600 text-white px-4 py-3 rounded-full text-sm font-bold shadow-md"
       >
         WhatsApp Order
       </a>
