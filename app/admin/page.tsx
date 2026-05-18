@@ -18,8 +18,17 @@ export default function AdminPage() {
   const [description, setDescription] = useState("");
   const [badge, setBadge] = useState("");
   const [category, setCategory] = useState("");
+
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFile2, setImageFile2] = useState<File | null>(null);
+  const [imageFile3, setImageFile3] = useState<File | null>(null);
+  const [imageFile4, setImageFile4] = useState<File | null>(null);
+
   const [preview, setPreview] = useState("");
+  const [preview2, setPreview2] = useState("");
+  const [preview3, setPreview3] = useState("");
+  const [preview4, setPreview4] = useState("");
+
   const [loading, setLoading] = useState(false);
 
   const inputClass =
@@ -45,69 +54,99 @@ export default function AdminPage() {
     router.push("/admin/login");
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setFile: any,
+    setPreviewImage: any
+  ) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setImageFile(file);
-    setPreview(URL.createObjectURL(file));
+    setFile(file);
+    setPreviewImage(URL.createObjectURL(file));
   };
 
-  const addProduct = async () => {
-    if (!name || !productCode || !price || !imageFile) {
-      alert("Product name, product code, price and image are required");
-      return;
-    }
+  const uploadImage = async (file: File | null) => {
+    if (!file) return "";
 
-    setLoading(true);
-
-    const cleanName = imageFile.name
+    const cleanName = file.name
       .toLowerCase()
       .replaceAll(" ", "-")
       .replaceAll("_", "-");
 
-    const fileName = `${Date.now()}-${cleanName}`;
+    const fileName = `${Date.now()}-${Math.random()
+      .toString(36)
+      .substring(2)}-${cleanName}`;
 
-    const { error: uploadError } = await supabase.storage
+    const { error } = await supabase.storage
       .from("products")
-      .upload(fileName, imageFile);
+      .upload(fileName, file);
 
-    if (uploadError) {
-      alert(uploadError.message);
-      setLoading(false);
-      return;
+    if (error) {
+      throw new Error(error.message);
     }
 
     const { data } = supabase.storage.from("products").getPublicUrl(fileName);
 
-    const { error } = await supabase.from("products").insert({
-      name: name.trim(),
-      product_code: productCode.trim(),
-      brand: brand.trim(),
-      price: price.trim(),
-      old_price: oldPrice.trim(),
-      description: description.trim(),
-      badge: badge.trim(),
-      image_url: data.publicUrl,
-      category: category.trim(),
-      in_stock: true,
-    });
+    return data.publicUrl;
+  };
 
-    if (error) {
-      alert(error.message);
-    } else {
-      alert("Product added successfully");
+  const addProduct = async () => {
+    if (!name || !productCode || !price || !imageFile) {
+      alert("Product name, product code, price and main image are required");
+      return;
+    }
 
-      setName("");
-      setProductCode("");
-      setBrand("");
-      setPrice("");
-      setOldPrice("");
-      setDescription("");
-      setBadge("");
-      setCategory("");
-      setImageFile(null);
-      setPreview("");
+    try {
+      setLoading(true);
+
+      const mainImageUrl = await uploadImage(imageFile);
+      const imageUrl2 = await uploadImage(imageFile2);
+      const imageUrl3 = await uploadImage(imageFile3);
+      const imageUrl4 = await uploadImage(imageFile4);
+
+      const { error } = await supabase.from("products").insert({
+        name: name.trim(),
+        product_code: productCode.trim(),
+        brand: brand.trim(),
+        price: price.trim(),
+        old_price: oldPrice.trim(),
+        description: description.trim(),
+        badge: badge.trim(),
+        image_url: mainImageUrl,
+        image_2: imageUrl2,
+        image_3: imageUrl3,
+        image_4: imageUrl4,
+        category: category.trim(),
+        in_stock: true,
+      });
+
+      if (error) {
+        alert(error.message);
+      } else {
+        alert("Product added successfully");
+
+        setName("");
+        setProductCode("");
+        setBrand("");
+        setPrice("");
+        setOldPrice("");
+        setDescription("");
+        setBadge("");
+        setCategory("");
+
+        setImageFile(null);
+        setImageFile2(null);
+        setImageFile3(null);
+        setImageFile4(null);
+
+        setPreview("");
+        setPreview2("");
+        setPreview3("");
+        setPreview4("");
+      }
+    } catch (err: any) {
+      alert(err.message || "Something went wrong");
     }
 
     setLoading(false);
@@ -131,12 +170,12 @@ export default function AdminPage() {
                 Admin Dashboard
               </p>
 
-              <h1 className="text-6xl font-extrabold mt-4">
+              <h1 className="text-5xl md:text-6xl font-extrabold mt-4">
                 The Libas Studio
               </h1>
 
               <p className="mt-5 text-[#5f5a52] text-lg">
-                Add new products with product code, image, brand, price and category.
+                Add products with main image and extra gallery images.
               </p>
             </div>
 
@@ -165,36 +204,179 @@ export default function AdminPage() {
             </h2>
 
             <p className="mt-3 text-gray-300 text-lg">
-              Upload boutique lawn collection with product code for WhatsApp orders.
+              Upload product details with multiple images.
             </p>
           </div>
 
           <div className="p-10 space-y-7">
             <div className="grid md:grid-cols-2 gap-6">
-              <input type="text" placeholder="Product Name" value={name} onChange={(e) => setName(e.target.value)} className={inputClass} />
-              <input type="text" placeholder="Product Code e.g TLS-2P-001" value={productCode} onChange={(e) => setProductCode(e.target.value)} className={inputClass} />
+              <input
+                type="text"
+                placeholder="Product Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className={inputClass}
+              />
+
+              <input
+                type="text"
+                placeholder="Product Code e.g TLS-2P-001"
+                value={productCode}
+                onChange={(e) => setProductCode(e.target.value)}
+                className={inputClass}
+              />
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              <input type="text" placeholder="Brand Name e.g Bin Saeed" value={brand} onChange={(e) => setBrand(e.target.value)} className={inputClass} />
-              <input type="text" placeholder="Category e.g Lawn Collection" value={category} onChange={(e) => setCategory(e.target.value)} className={inputClass} />
+              <input
+                type="text"
+                placeholder="Brand Name e.g Bin Saeed"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                className={inputClass}
+              />
+
+              <input
+                type="text"
+                placeholder="Category e.g 3 Piece Lawn"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className={inputClass}
+              />
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              <input type="text" placeholder="Price e.g Rs. 1,700" value={price} onChange={(e) => setPrice(e.target.value)} className={inputClass} />
-              <input type="text" placeholder="Old Price e.g Rs. 2,000" value={oldPrice} onChange={(e) => setOldPrice(e.target.value)} className={inputClass} />
+              <input
+                type="text"
+                placeholder="Price e.g Rs. 3,200"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className={inputClass}
+              />
+
+              <input
+                type="text"
+                placeholder="Old Price e.g Rs. 3,800"
+                value={oldPrice}
+                onChange={(e) => setOldPrice(e.target.value)}
+                className={inputClass}
+              />
             </div>
 
-            <input type="text" placeholder="Badge e.g New Arrival / Best Seller" value={badge} onChange={(e) => setBadge(e.target.value)} className={inputClass} />
+            <input
+              type="text"
+              placeholder="Badge e.g New Arrival / Best Seller"
+              value={badge}
+              onChange={(e) => setBadge(e.target.value)}
+              className={inputClass}
+            />
 
-            <textarea placeholder="Write product description..." value={description} onChange={(e) => setDescription(e.target.value)} rows={5} className={inputClass} />
+            <textarea
+              placeholder="Write product description..."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={5}
+              className={inputClass}
+            />
 
-            <div className="border-2 border-dashed border-[#C8A96B]/50 rounded-[2rem] p-10 bg-[#FAF7F2] text-center">
-              <input type="file" accept="image/*" onChange={handleImageChange} className="w-full text-[#1E1E1E]" />
+            <div className="border-2 border-dashed border-[#C8A96B]/50 rounded-[2rem] p-8 bg-[#FAF7F2]">
+              <h3 className="text-2xl font-bold mb-6">
+                Product Images
+              </h3>
 
-              {preview && (
-                <img src={preview} alt="Preview" className="mt-8 h-[450px] w-full object-cover rounded-[2rem] shadow-xl" />
-              )}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block mb-3 font-semibold">
+                    Main Image *
+                  </label>
+
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      handleImageChange(e, setImageFile, setPreview)
+                    }
+                    className="w-full text-[#1E1E1E]"
+                  />
+
+                  {preview && (
+                    <img
+                      src={preview}
+                      alt="Main Preview"
+                      className="mt-5 h-[350px] w-full object-cover rounded-2xl shadow-lg"
+                    />
+                  )}
+                </div>
+
+                <div>
+                  <label className="block mb-3 font-semibold">
+                    Second Image
+                  </label>
+
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      handleImageChange(e, setImageFile2, setPreview2)
+                    }
+                    className="w-full text-[#1E1E1E]"
+                  />
+
+                  {preview2 && (
+                    <img
+                      src={preview2}
+                      alt="Second Preview"
+                      className="mt-5 h-[350px] w-full object-cover rounded-2xl shadow-lg"
+                    />
+                  )}
+                </div>
+
+                <div>
+                  <label className="block mb-3 font-semibold">
+                    Third Image
+                  </label>
+
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      handleImageChange(e, setImageFile3, setPreview3)
+                    }
+                    className="w-full text-[#1E1E1E]"
+                  />
+
+                  {preview3 && (
+                    <img
+                      src={preview3}
+                      alt="Third Preview"
+                      className="mt-5 h-[350px] w-full object-cover rounded-2xl shadow-lg"
+                    />
+                  )}
+                </div>
+
+                <div>
+                  <label className="block mb-3 font-semibold">
+                    Fourth Image
+                  </label>
+
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      handleImageChange(e, setImageFile4, setPreview4)
+                    }
+                    className="w-full text-[#1E1E1E]"
+                  />
+
+                  {preview4 && (
+                    <img
+                      src={preview4}
+                      alt="Fourth Preview"
+                      className="mt-5 h-[350px] w-full object-cover rounded-2xl shadow-lg"
+                    />
+                  )}
+                </div>
+              </div>
             </div>
 
             <button
