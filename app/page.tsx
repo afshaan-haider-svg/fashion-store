@@ -42,42 +42,28 @@ export default function Home() {
     <main className="min-h-screen bg-[#FAF7F2] text-[#1E1E1E] pb-20 md:pb-0">
       <Navbar />
 
-      <section className="relative h-[78vh] md:min-h-[95vh] overflow-hidden flex items-end">
+      <section className="relative bg-[#FAF7F2] overflow-hidden">
   <div
-    className="absolute inset-0 bg-cover bg-center md:bg-center"
+    className="relative h-[78vh] md:min-h-[95vh] bg-no-repeat"
     style={{
       backgroundImage: "url('/banners/hero-banner.jpg')",
+      backgroundSize: "contain",
+      backgroundPosition: "center top",
+      backgroundColor: "#FAF7F2",
     }}
-  ></div>
-
-  <div className="absolute inset-0 bg-black/20 md:bg-black/10"></div>
-
-  <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-8 w-full pb-8 md:pb-14">
-    <p className="text-white uppercase tracking-[0.35em] text-xs md:text-sm font-bold mb-4">
-      Luxury Lawn Wear
-    </p>
-
-    <h1 className="text-4xl md:text-7xl font-extrabold text-white leading-tight max-w-4xl">
-      Elegant Fashion For Modern Women
-    </h1>
-
-    <p className="mt-5 text-white/90 text-sm md:text-xl leading-7 md:leading-9 max-w-2xl">
-      Discover premium lawn collections crafted with elegance,
-      sophistication, and timeless luxury.
-    </p>
-
-    <div className="flex flex-wrap gap-3 md:gap-5 mt-8">
+  >
+    <div className="absolute bottom-8 left-5 md:left-10 flex flex-col gap-4">
       <Link
         href="/products"
-        className="bg-[#C8A96B] text-[#1E1E1E] px-6 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-bold shadow-2xl"
+        className="bg-[#C8A96B] text-[#1E1E1E] px-7 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-bold shadow-xl"
       >
-        Explore Collection
+        Shop Collection
       </Link>
 
       <a
         href="https://wa.me/923057792102"
         target="_blank"
-        className="bg-green-600 text-white px-6 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-semibold shadow-2xl"
+        className="bg-green-600 text-white px-7 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-bold shadow-xl"
       >
         WhatsApp Order
       </a>
