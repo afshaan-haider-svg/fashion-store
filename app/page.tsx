@@ -43,16 +43,14 @@ export default function Home() {
       <Navbar />
 
       <section className="relative bg-[#FAF7F2] overflow-hidden">
-  <div
-    className="relative h-[78vh] md:min-h-[95vh] bg-no-repeat"
-    style={{
-      backgroundImage: "url('/banners/hero-banner.jpg')",
-      backgroundSize: "contain",
-      backgroundPosition: "center top",
-      backgroundColor: "#FAF7F2",
-    }}
-  >
-    <div className="absolute bottom-8 left-5 md:left-10 flex flex-col gap-4">
+  <div className="relative">
+    <img
+      src="/banners/hero-banner.jpg"
+      alt="The Libas Studio"
+      className="w-full h-auto block"
+    />
+
+    <div className="absolute bottom-5 left-5 md:bottom-12 md:left-10 flex flex-col gap-3 md:gap-4">
       <Link
         href="/products"
         className="bg-[#C8A96B] text-[#1E1E1E] px-7 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-bold shadow-xl"
