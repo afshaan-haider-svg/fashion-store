@@ -4,13 +4,29 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { supabase } from "../lib/supabase";
 import Link from "next/link";
+import Footer from "../components/Footer";
 
 export default function Home() {
   const [products, setProducts] = useState<any[]>([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const heroSlides = [
+    "/banners/hero-banner.jpg",
+    "/categories/lawn.jpg",
+    "/categories/luxury.jpg",
+  ];
 
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [heroSlides.length]);
 
   const fetchProducts = async () => {
     const { data, error } = await supabase
@@ -26,17 +42,31 @@ export default function Home() {
     <main className="min-h-screen bg-[#FAF7F2] text-[#1E1E1E] pb-20 md:pb-0">
       <Navbar />
 
-      <section
-        className="relative h-[62vh] md:min-h-[95vh] bg-cover bg-center flex items-end"
-        style={{ backgroundImage: "url('/banners/hero-banner.jpg')" }}
-      >
-        <div className="absolute inset-0 bg-black/20 md:bg-black/10"></div>
+      <section className="relative h-[70vh] md:min-h-[95vh] overflow-hidden flex items-end">
+        {heroSlides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 bg-cover bg-center md:bg-center transition-opacity duration-1000 ${
+              currentSlide === index ? "opacity-100" : "opacity-0"
+            }`}
+            style={{
+              backgroundImage: `url('${slide}')`,
+              transform: "scale(1.08)",
+            }}
+          />
+        ))}
 
-        <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-8 w-full pb-8 md:pb-10">
+        <div className="absolute inset-0 bg-black/25 md:bg-black/15"></div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-8 w-full pb-8 md:pb-12">
+          <p className="text-white uppercase tracking-[0.35em] text-xs md:text-sm font-bold mb-4">
+            Luxury Lawn Wear
+          </p>
+
           <div className="flex gap-3 md:gap-5">
             <Link
               href="/products"
-              className="bg-[#C8A96B] text-[#1E1E1E] px-6 md:px-10 py-4 md:py-5 rounded-full transition duration-300 text-sm md:text-lg font-bold shadow-2xl"
+              className="bg-[#C8A96B] text-[#1E1E1E] px-6 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-bold shadow-2xl"
             >
               Explore Collection
             </Link>
@@ -44,10 +74,24 @@ export default function Home() {
             <a
               href="https://wa.me/923057792102"
               target="_blank"
-              className="bg-green-600 text-white px-6 md:px-10 py-4 md:py-5 rounded-full transition duration-300 text-sm md:text-lg font-semibold shadow-2xl"
+              className="bg-green-600 text-white px-6 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-semibold shadow-2xl"
             >
               WhatsApp Order
             </a>
+          </div>
+
+          <div className="flex gap-2 mt-6">
+            {heroSlides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`h-2 rounded-full transition-all ${
+                  currentSlide === index
+                    ? "w-8 bg-[#C8A96B]"
+                    : "w-2 bg-white/70"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -66,7 +110,7 @@ export default function Home() {
             >
               <div className="text-4xl md:text-5xl">{item[0]}</div>
 
-              <h3 className="mt-4 md:mt-5 text-lg md:text-2xl font-extrabold text-[#1E1E1E] leading-snug">
+              <h3 className="mt-4 md:mt-5 text-lg md:text-2xl font-extrabold leading-snug">
                 {item[1]}
               </h3>
             </div>
@@ -80,36 +124,53 @@ export default function Home() {
             Fashion Categories
           </p>
 
-          <h2 className="text-4xl md:text-6xl font-extrabold mt-4 md:mt-5 text-[#1E1E1E]">
+          <h2 className="text-4xl md:text-6xl font-extrabold mt-4 md:mt-5">
             Shop By Category
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-10 max-w-7xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-10 max-w-7xl mx-auto">
           {[
-            ["/categories/lawn.jpg", "Luxury Lawn", "Elegant lawn collections for every season."],
-            ["/categories/luxury.jpg", "Premium Wear", "Luxury outfits designed with sophistication."],
-            ["/categories/new-arrivals.jpg", "New Arrivals", "Latest trendy designs for modern women."],
+            [
+              "/categories/lawn.jpg",
+              "Luxury Lawn",
+              "Elegant lawn collections.",
+            ],
+            [
+              "/categories/luxury.jpg",
+              "Premium Wear",
+              "Luxury outfits.",
+            ],
+            [
+              "/categories/new-arrivals.jpg",
+              "New Arrivals",
+              "Latest designs.",
+            ],
+            [
+              "/banners/hero-banner.jpg",
+              "Best Sellers",
+              "Top collections.",
+            ],
           ].map((item, index) => (
             <Link
               href="/products"
               key={index}
-              className="group relative overflow-hidden rounded-2xl md:rounded-[2rem] shadow-lg md:shadow-2xl"
+              className="group relative overflow-hidden rounded-xl md:rounded-[2rem] shadow-lg md:shadow-2xl"
             >
               <img
                 src={item[0]}
                 alt={item[1]}
-                className="h-[360px] md:h-[550px] w-full object-cover"
+                className="h-[250px] md:h-[550px] w-full object-cover group-hover:scale-110 transition duration-700"
               />
 
               <div className="absolute inset-0 bg-black/35"></div>
 
-              <div className="absolute bottom-6 md:bottom-10 left-5 md:left-8 right-5 md:right-8">
-                <h3 className="text-3xl md:text-4xl font-extrabold text-white">
+              <div className="absolute bottom-4 md:bottom-10 left-4 md:left-8 right-4 md:right-8">
+                <h3 className="text-xl md:text-4xl font-extrabold text-white">
                   {item[1]}
                 </h3>
 
-                <p className="mt-3 md:mt-4 text-gray-200 text-sm md:text-lg leading-6 md:leading-7">
+                <p className="mt-2 md:mt-4 text-gray-200 text-xs md:text-lg leading-5 md:leading-7">
                   {item[2]}
                 </p>
               </div>
@@ -124,7 +185,7 @@ export default function Home() {
             Best Selling Collection
           </p>
 
-          <h2 className="text-4xl md:text-6xl font-extrabold mt-4 md:mt-5 text-[#1E1E1E]">
+          <h2 className="text-4xl md:text-6xl font-extrabold mt-4 md:mt-5">
             Featured Products
           </h2>
         </div>
@@ -133,7 +194,7 @@ export default function Home() {
           {products.map((item) => (
             <div
               key={item.id}
-              className="group bg-white rounded-xl md:rounded-[2rem] overflow-hidden shadow-sm md:shadow-lg border border-[#C8A96B]/20"
+              className="group bg-white rounded-xl md:rounded-[2rem] overflow-hidden shadow-sm md:shadow-lg border border-[#C8A96B]/20 hover:-translate-y-1 md:hover:-translate-y-3 hover:shadow-2xl transition duration-500"
             >
               <div className="relative overflow-hidden">
                 <div className="absolute top-2 left-2 bg-[#1E1E1E] text-white text-[10px] md:text-xs px-2 md:px-4 py-1 md:py-2 rounded-full z-10">
@@ -144,7 +205,7 @@ export default function Home() {
                   <img
                     src={item.image_url}
                     alt={item.name}
-                    className="h-[240px] sm:h-[300px] md:h-[450px] w-full object-cover"
+                    className="h-[240px] sm:h-[300px] md:h-[450px] w-full object-cover group-hover:scale-105 transition duration-700"
                   />
                 </Link>
 
@@ -180,7 +241,7 @@ export default function Home() {
                 </p>
 
                 <div className="mt-3 md:mt-5 flex flex-col md:flex-row md:items-center justify-center md:justify-start">
-                  <span className="text-lg md:text-3xl font-extrabold text-[#1E1E1E]">
+                  <span className="text-lg md:text-3xl font-extrabold">
                     {item.price}
                   </span>
 
@@ -215,7 +276,7 @@ export default function Home() {
         <div className="text-center mt-10 md:mt-16">
           <Link
             href="/products"
-            className="inline-block bg-[#C8A96B] text-[#1E1E1E] px-8 md:px-12 py-4 md:py-5 rounded-full transition duration-300 text-sm md:text-lg font-bold shadow-xl"
+            className="inline-block bg-[#C8A96B] text-[#1E1E1E] px-8 md:px-12 py-4 md:py-5 rounded-full text-sm md:text-lg font-bold shadow-xl"
           >
             View All Products
           </Link>
@@ -229,7 +290,7 @@ export default function Home() {
               About Brand
             </p>
 
-            <h2 className="text-4xl md:text-6xl font-extrabold mt-4 md:mt-5 leading-tight text-[#1E1E1E]">
+            <h2 className="text-4xl md:text-6xl font-extrabold mt-4 md:mt-5 leading-tight">
               Fashion Designed For Elegant Women
             </h2>
 
@@ -241,7 +302,7 @@ export default function Home() {
 
             <Link
               href="/about"
-              className="inline-block mt-8 md:mt-10 bg-[#1E1E1E] text-white px-8 md:px-10 py-4 md:py-5 rounded-full transition duration-300 text-sm md:text-lg font-semibold"
+              className="inline-block mt-8 md:mt-10 bg-[#1E1E1E] text-white px-8 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-semibold"
             >
               Learn More
             </Link>
@@ -284,14 +345,14 @@ export default function Home() {
         <a
           href="https://wa.me/923057792102"
           target="_blank"
-          className="inline-block mt-8 md:mt-12 bg-green-600 text-white px-8 md:px-12 py-4 md:py-5 rounded-full transition duration-300 text-sm md:text-lg shadow-2xl font-semibold"
+          className="inline-block mt-8 md:mt-12 bg-green-600 text-white px-8 md:px-12 py-4 md:py-5 rounded-full text-sm md:text-lg shadow-2xl font-semibold"
         >
           Order On WhatsApp
         </a>
       </section>
 
       <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-2xl md:hidden">
-        <div className="grid grid-cols-4 text-center text-xs font-semibold text-[#1E1E1E]">
+        <div className="grid grid-cols-4 text-center text-xs font-semibold">
           <Link href="/" className="py-3">
             <div className="text-2xl">⌂</div>
             Home
@@ -313,6 +374,8 @@ export default function Home() {
           </Link>
         </div>
       </div>
+
+      <Footer />
     </main>
   );
 }
