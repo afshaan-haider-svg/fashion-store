@@ -55,9 +55,12 @@ export default function ProductsPage() {
 
       const itemCategory = item.category?.toLowerCase() || "";
 
-      const matchesCategory =
-        category === "All" ||
-        itemCategory.includes(category.toLowerCase());
+      const normalize = (value: string) =>
+  value.toLowerCase().replace(/\s|-/g, "");
+
+const matchesCategory =
+  category === "All" ||
+  normalize(item.category || "") === normalize(category);
 
       return matchesSearch && matchesCategory;
     });
