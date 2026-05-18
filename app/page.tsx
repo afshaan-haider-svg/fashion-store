@@ -42,59 +42,48 @@ export default function Home() {
     <main className="min-h-screen bg-[#FAF7F2] text-[#1E1E1E] pb-20 md:pb-0">
       <Navbar />
 
-      <section className="relative h-[70vh] md:min-h-[95vh] overflow-hidden flex items-end">
-        {heroSlides.map((slide, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 bg-cover bg-center md:bg-center transition-opacity duration-1000 ${
-              currentSlide === index ? "opacity-100" : "opacity-0"
-            }`}
-            style={{
-              backgroundImage: `url('${slide}')`,
-              transform: "scale(1.08)",
-            }}
-          />
-        ))}
+      <section className="relative h-[78vh] md:min-h-[95vh] overflow-hidden flex items-end">
+  <div
+    className="absolute inset-0 bg-cover bg-center md:bg-center"
+    style={{
+      backgroundImage: "url('/banners/hero-banner.jpg')",
+    }}
+  ></div>
 
-        <div className="absolute inset-0 bg-black/25 md:bg-black/15"></div>
+  <div className="absolute inset-0 bg-black/20 md:bg-black/10"></div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-8 w-full pb-8 md:pb-12">
-          <p className="text-white uppercase tracking-[0.35em] text-xs md:text-sm font-bold mb-4">
-            Luxury Lawn Wear
-          </p>
+  <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-8 w-full pb-8 md:pb-14">
+    <p className="text-white uppercase tracking-[0.35em] text-xs md:text-sm font-bold mb-4">
+      Luxury Lawn Wear
+    </p>
 
-          <div className="flex gap-3 md:gap-5">
-            <Link
-              href="/products"
-              className="bg-[#C8A96B] text-[#1E1E1E] px-6 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-bold shadow-2xl"
-            >
-              Explore Collection
-            </Link>
+    <h1 className="text-4xl md:text-7xl font-extrabold text-white leading-tight max-w-4xl">
+      Elegant Fashion For Modern Women
+    </h1>
 
-            <a
-              href="https://wa.me/923057792102"
-              target="_blank"
-              className="bg-green-600 text-white px-6 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-semibold shadow-2xl"
-            >
-              WhatsApp Order
-            </a>
-          </div>
+    <p className="mt-5 text-white/90 text-sm md:text-xl leading-7 md:leading-9 max-w-2xl">
+      Discover premium lawn collections crafted with elegance,
+      sophistication, and timeless luxury.
+    </p>
 
-          <div className="flex gap-2 mt-6">
-            {heroSlides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`h-2 rounded-full transition-all ${
-                  currentSlide === index
-                    ? "w-8 bg-[#C8A96B]"
-                    : "w-2 bg-white/70"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+    <div className="flex flex-wrap gap-3 md:gap-5 mt-8">
+      <Link
+        href="/products"
+        className="bg-[#C8A96B] text-[#1E1E1E] px-6 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-bold shadow-2xl"
+      >
+        Explore Collection
+      </Link>
+
+      <a
+        href="https://wa.me/923057792102"
+        target="_blank"
+        className="bg-green-600 text-white px-6 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-lg font-semibold shadow-2xl"
+      >
+        WhatsApp Order
+      </a>
+    </div>
+  </div>
+</section>
 
       <section className="py-8 md:py-24 bg-[#F1E7D8]">
         <div className="max-w-7xl mx-auto px-3 md:px-8 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-8">
