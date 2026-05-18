@@ -48,23 +48,31 @@ export default function ProductsPage() {
   };
 
   const filteredProducts = useMemo(() => {
-    return products.filter((item) => {
-      const matchesSearch =
-        item.name?.toLowerCase().includes(search.toLowerCase()) ||
-        item.product_code?.toLowerCase().includes(search.toLowerCase());
+  return products.filter((item) => {
+    const searchText = `${item.name || ""} ${item.product_code || ""} ${
+      item.brand || ""
+    } ${item.category || ""}`.toLowerCase();
 
-      const itemCategory = item.category?.toLowerCase() || "";
+    const matchesSearch = searchText.includes(search.toLowerCase());
 
-      const normalize = (value: string) =>
-  value.toLowerCase().replace(/\s|-/g, "");
+    const categoryText = `${item.name || ""} ${item.category || ""}`.toLowerCase();
 
-const matchesCategory =
-  category === "All" ||
-  normalize(item.category || "") === normalize(category);
+    const matchesCategory =
+      category === "All" ||
+      (category === "2 Piece" &&
+        (categoryText.includes("2 piece") ||
+          categoryText.includes("2piece") ||
+          categoryText.includes("2 pice") ||
+          categoryText.includes("2piece"))) ||
+      (category === "3 Piece" &&
+        (categoryText.includes("3 piece") ||
+          categoryText.includes("3piece") ||
+          categoryText.includes("3 pice") ||
+          categoryText.includes("3piece")));
 
-      return matchesSearch && matchesCategory;
-    });
-  }, [products, search, category]);
+    return matchesSearch && matchesCategory;
+  });
+}, [products, search, category]);
 
   const reviews = [
     {
