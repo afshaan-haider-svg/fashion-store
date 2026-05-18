@@ -23,37 +23,37 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-[#FAF7F2] text-[#1E1E1E]">
+    <main className="min-h-screen bg-[#FAF7F2] text-[#1E1E1E] pb-20 md:pb-0">
       <Navbar />
 
       <section
-  className="relative min-h-[95vh] bg-cover bg-center flex items-end"
-  style={{ backgroundImage: "url('/banners/hero-banner.jpg')" }}
->
-  <div className="absolute inset-0 bg-black/10"></div>
-
-  <div className="relative z-10 max-w-7xl mx-auto px-8 w-full pb-8">
-    <div className="flex flex-wrap gap-5">
-      <Link
-        href="/products"
-        className="bg-[#C8A96B] text-[#1E1E1E] px-10 py-5 rounded-full hover:bg-[#d6b87a] transition duration-300 text-lg font-bold shadow-2xl"
+        className="relative h-[62vh] md:min-h-[95vh] bg-cover bg-center flex items-end"
+        style={{ backgroundImage: "url('/banners/hero-banner.jpg')" }}
       >
-        Explore Collection
-      </Link>
+        <div className="absolute inset-0 bg-black/20 md:bg-black/10"></div>
 
-      <a
-        href="https://wa.me/923057792102"
-        target="_blank"
-        className="bg-green-600 text-white px-10 py-5 rounded-full hover:bg-green-700 transition duration-300 text-lg font-semibold shadow-2xl"
-      >
-        WhatsApp Order
-      </a>
-    </div>
-  </div>
-</section>
+        <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-8 w-full pb-8 md:pb-10">
+          <div className="flex gap-3 md:gap-5">
+            <Link
+              href="/products"
+              className="bg-[#C8A96B] text-[#1E1E1E] px-6 md:px-10 py-4 md:py-5 rounded-full transition duration-300 text-sm md:text-lg font-bold shadow-2xl"
+            >
+              Explore Collection
+            </Link>
 
-      <section className="py-24 bg-[#F1E7D8]">
-        <div className="max-w-7xl mx-auto px-8 grid md:grid-cols-4 gap-8">
+            <a
+              href="https://wa.me/923057792102"
+              target="_blank"
+              className="bg-green-600 text-white px-6 md:px-10 py-4 md:py-5 rounded-full transition duration-300 text-sm md:text-lg font-semibold shadow-2xl"
+            >
+              WhatsApp Order
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-8 md:py-24 bg-[#F1E7D8]">
+        <div className="max-w-7xl mx-auto px-3 md:px-8 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-8">
           {[
             ["🚚", "Fast Delivery"],
             ["✨", "Luxury Lawn"],
@@ -62,11 +62,11 @@ export default function Home() {
           ].map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-[2rem] p-10 text-center shadow-lg border border-[#C8A96B]/20 hover:-translate-y-2 transition duration-300"
+              className="bg-white rounded-2xl md:rounded-[2rem] p-6 md:p-10 text-center shadow-sm md:shadow-lg border border-[#C8A96B]/20"
             >
-              <div className="text-5xl">{item[0]}</div>
+              <div className="text-4xl md:text-5xl">{item[0]}</div>
 
-              <h3 className="mt-5 text-2xl font-extrabold text-[#1E1E1E]">
+              <h3 className="mt-4 md:mt-5 text-lg md:text-2xl font-extrabold text-[#1E1E1E] leading-snug">
                 {item[1]}
               </h3>
             </div>
@@ -74,130 +74,166 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-28 px-8">
-        <div className="text-center mb-16">
-          <p className="uppercase tracking-[0.35em] text-[#C8A96B] text-sm font-bold">
+      <section className="py-12 md:py-28 px-3 md:px-8">
+        <div className="text-center mb-8 md:mb-16">
+          <p className="uppercase tracking-[0.25em] md:tracking-[0.35em] text-[#C8A96B] text-xs md:text-sm font-bold">
             Fashion Categories
           </p>
 
-          <h2 className="text-6xl font-extrabold mt-5 text-[#1E1E1E]">
+          <h2 className="text-4xl md:text-6xl font-extrabold mt-4 md:mt-5 text-[#1E1E1E]">
             Shop By Category
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-10 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-10 max-w-7xl mx-auto">
           {[
             ["/categories/lawn.jpg", "Luxury Lawn", "Elegant lawn collections for every season."],
             ["/categories/luxury.jpg", "Premium Wear", "Luxury outfits designed with sophistication."],
             ["/categories/new-arrivals.jpg", "New Arrivals", "Latest trendy designs for modern women."],
           ].map((item, index) => (
-            <div
+            <Link
+              href="/products"
               key={index}
-              className="group relative overflow-hidden rounded-[2rem] shadow-2xl"
+              className="group relative overflow-hidden rounded-2xl md:rounded-[2rem] shadow-lg md:shadow-2xl"
             >
               <img
                 src={item[0]}
                 alt={item[1]}
-                className="h-[550px] w-full object-cover group-hover:scale-110 transition duration-700"
+                className="h-[360px] md:h-[550px] w-full object-cover"
               />
 
               <div className="absolute inset-0 bg-black/35"></div>
 
-              <div className="absolute bottom-10 left-8 right-8">
-                <h3 className="text-4xl font-extrabold text-white">
+              <div className="absolute bottom-6 md:bottom-10 left-5 md:left-8 right-5 md:right-8">
+                <h3 className="text-3xl md:text-4xl font-extrabold text-white">
                   {item[1]}
                 </h3>
 
-                <p className="mt-4 text-gray-200 text-lg leading-7">
+                <p className="mt-3 md:mt-4 text-gray-200 text-sm md:text-lg leading-6 md:leading-7">
                   {item[2]}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
 
-      <section className="py-28 bg-[#F1E7D8] px-8">
-        <div className="text-center mb-16">
-          <p className="uppercase tracking-[0.35em] text-[#C8A96B] text-sm font-bold">
+      <section className="py-12 md:py-28 bg-[#F1E7D8] px-3 md:px-8">
+        <div className="text-center mb-8 md:mb-16">
+          <p className="uppercase tracking-[0.25em] md:tracking-[0.35em] text-[#C8A96B] text-xs md:text-sm font-bold">
             Best Selling Collection
           </p>
 
-          <h2 className="text-6xl font-extrabold mt-5 text-[#1E1E1E]">
+          <h2 className="text-4xl md:text-6xl font-extrabold mt-4 md:mt-5 text-[#1E1E1E]">
             Featured Products
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-10 max-w-7xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-10 max-w-7xl mx-auto">
           {products.map((item) => (
             <div
               key={item.id}
-              className="group bg-white rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-3 transition duration-500 border border-[#C8A96B]/20"
+              className="group bg-white rounded-xl md:rounded-[2rem] overflow-hidden shadow-sm md:shadow-lg border border-[#C8A96B]/20"
             >
               <div className="relative overflow-hidden">
-                <div className="absolute top-4 left-4 bg-[#1E1E1E] text-white text-xs px-4 py-2 rounded-full z-10">
+                <div className="absolute top-2 left-2 bg-[#1E1E1E] text-white text-[10px] md:text-xs px-2 md:px-4 py-1 md:py-2 rounded-full z-10">
                   {item.badge || "New"}
                 </div>
 
-                <img
-                  src={item.image_url}
-                  alt={item.name}
-                  className="h-[450px] w-full object-cover group-hover:scale-110 transition duration-700"
-                />
+                <Link href={`/products/${item.id}`}>
+                  <img
+                    src={item.image_url}
+                    alt={item.name}
+                    className="h-[240px] sm:h-[300px] md:h-[450px] w-full object-cover"
+                  />
+                </Link>
+
+                <div className="absolute right-2 bottom-2 flex flex-col gap-2 md:hidden">
+                  <Link
+                    href={`/products/${item.id}`}
+                    className="h-10 w-10 rounded-full bg-white shadow-lg flex items-center justify-center"
+                  >
+                    👁
+                  </Link>
+
+                  <a
+                    href={`https://wa.me/923057792102?text=Hello, I want to order:%0AProduct: ${item.name}%0ACode: ${item.product_code || "N/A"}%0ABrand: ${item.brand || "The Libas Studio"}%0APrice: ${item.price}`}
+                    target="_blank"
+                    className="h-10 w-10 rounded-full bg-green-600 text-white shadow-lg flex items-center justify-center"
+                  >
+                    🛒
+                  </a>
+                </div>
               </div>
 
-              <div className="p-7">
-                <p className="text-sm uppercase tracking-[0.3em] text-[#C8A96B] font-bold">
+              <div className="p-3 md:p-7 text-center md:text-left">
+                <p className="text-[10px] md:text-sm uppercase tracking-[0.18em] md:tracking-[0.3em] text-[#C8A96B] font-bold truncate">
                   {item.brand || "The Libas Studio"}
                 </p>
 
-                <h3 className="mt-3 text-3xl font-extrabold text-[#1E1E1E]">
+                <h3 className="mt-2 text-sm md:text-3xl font-extrabold leading-snug line-clamp-2 min-h-[40px] md:min-h-0">
                   {item.name}
                 </h3>
 
-                <div className="mt-5 flex items-center">
-                  <span className="text-[#1E1E1E] text-3xl font-extrabold">
+                <p className="mt-2 text-[11px] md:text-sm text-[#5f5a52]">
+                  Code: {item.product_code || "N/A"}
+                </p>
+
+                <div className="mt-3 md:mt-5 flex flex-col md:flex-row md:items-center justify-center md:justify-start">
+                  <span className="text-lg md:text-3xl font-extrabold text-[#1E1E1E]">
                     {item.price}
                   </span>
 
-                  <span className="ml-4 text-gray-400 line-through">
-                    {item.old_price}
-                  </span>
+                  {item.old_price && (
+                    <span className="md:ml-4 text-xs md:text-base text-gray-400 line-through">
+                      {item.old_price}
+                    </span>
+                  )}
                 </div>
 
-                <Link
-                  href={`/products/${item.id}`}
-                  className="inline-block mt-8 bg-[#1E1E1E] text-white px-8 py-4 rounded-full hover:bg-[#C8A96B] hover:text-[#1E1E1E] transition duration-300 font-semibold"
-                >
-                  View Details
-                </Link>
+                <div className="hidden md:flex mt-8 flex-col gap-3">
+                  <a
+                    href={`https://wa.me/923057792102?text=Hello, I want to order:%0AProduct: ${item.name}%0ACode: ${item.product_code || "N/A"}%0ABrand: ${item.brand || "The Libas Studio"}%0APrice: ${item.price}`}
+                    target="_blank"
+                    className="w-full text-center bg-green-600 text-white px-6 py-4 rounded-full hover:bg-green-700 transition font-semibold"
+                  >
+                    Order on WhatsApp
+                  </a>
+
+                  <Link
+                    href={`/products/${item.id}`}
+                    className="w-full text-center bg-[#1E1E1E] text-white px-6 py-4 rounded-full hover:bg-[#C8A96B] hover:text-[#1E1E1E] transition font-semibold"
+                  >
+                    View Details
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-16">
+        <div className="text-center mt-10 md:mt-16">
           <Link
             href="/products"
-            className="inline-block bg-[#C8A96B] text-[#1E1E1E] px-12 py-5 rounded-full hover:bg-[#d6b87a] transition duration-300 text-lg font-bold shadow-xl"
+            className="inline-block bg-[#C8A96B] text-[#1E1E1E] px-8 md:px-12 py-4 md:py-5 rounded-full transition duration-300 text-sm md:text-lg font-bold shadow-xl"
           >
             View All Products
           </Link>
         </div>
       </section>
 
-      <section className="py-28 px-8">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+      <section className="py-14 md:py-28 px-5 md:px-8">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 md:gap-20 items-center">
           <div>
-            <p className="uppercase tracking-[0.35em] text-[#C8A96B] text-sm font-bold">
+            <p className="uppercase tracking-[0.25em] md:tracking-[0.35em] text-[#C8A96B] text-xs md:text-sm font-bold">
               About Brand
             </p>
 
-            <h2 className="text-6xl font-extrabold mt-5 leading-tight text-[#1E1E1E]">
+            <h2 className="text-4xl md:text-6xl font-extrabold mt-4 md:mt-5 leading-tight text-[#1E1E1E]">
               Fashion Designed For Elegant Women
             </h2>
 
-            <p className="mt-8 text-[#5f5a52] text-lg leading-9">
+            <p className="mt-5 md:mt-8 text-[#5f5a52] text-base md:text-lg leading-8 md:leading-9">
               The Libas Studio combines premium lawn fabrics, feminine designs,
               and modern luxury aesthetics to create outfits that feel elegant,
               graceful, and timeless.
@@ -205,7 +241,7 @@ export default function Home() {
 
             <Link
               href="/about"
-              className="inline-block mt-10 bg-[#1E1E1E] text-white px-10 py-5 rounded-full hover:bg-[#C8A96B] hover:text-[#1E1E1E] transition duration-300 text-lg font-semibold"
+              className="inline-block mt-8 md:mt-10 bg-[#1E1E1E] text-white px-8 md:px-10 py-4 md:py-5 rounded-full transition duration-300 text-sm md:text-lg font-semibold"
             >
               Learn More
             </Link>
@@ -215,10 +251,10 @@ export default function Home() {
             <img
               src="/categories/luxury.jpg"
               alt="Luxury Fashion"
-              className="rounded-[2rem] shadow-2xl h-[700px] w-full object-cover"
+              className="rounded-2xl md:rounded-[2rem] shadow-xl md:shadow-2xl h-[430px] md:h-[700px] w-full object-cover"
             />
 
-            <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-[2rem] shadow-2xl border border-[#C8A96B]/20">
+            <div className="hidden md:block absolute -bottom-10 -left-10 bg-white p-8 rounded-[2rem] shadow-2xl border border-[#C8A96B]/20">
               <h3 className="text-5xl font-extrabold text-[#C8A96B]">
                 Premium
               </h3>
@@ -231,16 +267,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-28 bg-[#1E1E1E] text-white text-center px-6">
-        <p className="uppercase tracking-[0.35em] text-[#C8A96B] text-sm font-bold">
+      <section className="py-16 md:py-28 bg-[#1E1E1E] text-white text-center px-5 md:px-6">
+        <p className="uppercase tracking-[0.25em] md:tracking-[0.35em] text-[#C8A96B] text-xs md:text-sm font-bold">
           Premium Fashion Boutique
         </p>
 
-        <h2 className="text-6xl font-extrabold mt-6 leading-tight">
+        <h2 className="text-4xl md:text-6xl font-extrabold mt-5 md:mt-6 leading-tight">
           Elevate Your Style With Elegance
         </h2>
 
-        <p className="mt-8 text-gray-300 text-xl max-w-4xl mx-auto leading-9">
+        <p className="mt-5 md:mt-8 text-gray-300 text-base md:text-xl max-w-4xl mx-auto leading-8 md:leading-9">
           Explore premium lawn collections inspired by modern femininity,
           sophistication, and timeless luxury.
         </p>
@@ -248,11 +284,35 @@ export default function Home() {
         <a
           href="https://wa.me/923057792102"
           target="_blank"
-          className="inline-block mt-12 bg-green-600 text-white px-12 py-5 rounded-full hover:bg-green-700 transition duration-300 text-lg shadow-2xl font-semibold"
+          className="inline-block mt-8 md:mt-12 bg-green-600 text-white px-8 md:px-12 py-4 md:py-5 rounded-full transition duration-300 text-sm md:text-lg shadow-2xl font-semibold"
         >
           Order On WhatsApp
         </a>
       </section>
+
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-2xl md:hidden">
+        <div className="grid grid-cols-4 text-center text-xs font-semibold text-[#1E1E1E]">
+          <Link href="/" className="py-3">
+            <div className="text-2xl">⌂</div>
+            Home
+          </Link>
+
+          <Link href="/products" className="py-3">
+            <div className="text-2xl">▦</div>
+            Shop
+          </Link>
+
+          <a href="https://wa.me/923057792102" target="_blank" className="py-3">
+            <div className="text-2xl">🛒</div>
+            Order
+          </a>
+
+          <Link href="/contact" className="py-3">
+            <div className="text-2xl">⌕</div>
+            Help
+          </Link>
+        </div>
+      </div>
     </main>
   );
 }
