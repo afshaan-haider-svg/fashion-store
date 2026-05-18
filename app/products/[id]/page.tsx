@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../../lib/supabase";
 import { useParams } from "next/navigation";
 import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/Footer";
 import Link from "next/link";
 
 export default function ProductDetailPage() {
@@ -12,6 +13,7 @@ export default function ProductDetailPage() {
 
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
     fetchProduct();
@@ -28,6 +30,7 @@ export default function ProductDetailPage() {
       console.log(error);
     } else {
       setProduct(data);
+      setSelectedImage(data.image_url || "");
     }
 
     setLoading(false);
@@ -35,8 +38,13 @@ export default function ProductDetailPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-[#FAF7F2] text-2xl font-bold">
-        Loading Product...
+      <main className="min-h-screen bg-[#FAF7F2] flex items-center justify-center px-6">
+        <div className="text-center">
+          <div className="mx-auto h-16 w-16 rounded-full border-4 border-[#C8A96B]/30 border-t-[#C8A96B] animate-spin"></div>
+          <h1 className="mt-6 text-2xl font-extrabold text-[#1E1E1E]">
+            Loading Product...
+          </h1>
+        </div>
       </main>
     );
   }
@@ -58,18 +66,49 @@ export default function ProductDetailPage() {
     );
   }
 
+  const galleryImages = [
+    product.image_url,
+    product.image_2,
+    product.image_3,
+    product.image_4,
+  ].filter(Boolean);
+
   return (
     <main className="min-h-screen bg-[#FAF7F2] text-[#1E1E1E] pb-24 md:pb-0">
       <Navbar />
 
       <section className="px-4 md:px-8 py-6 md:py-20">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 md:gap-16 items-start">
-          <div className="bg-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-lg md:shadow-2xl border border-[#C8A96B]/20">
-            <img
-              src={product.image_url}
-              alt={product.name}
-              className="h-[520px] md:h-[720px] w-full object-cover"
-            />
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-6 md:gap-16 items-start">
+          <div>
+            <div className="bg-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-lg md:shadow-2xl border border-[#C8A96B]/20">
+              <img
+                src={selectedImage || product.image_url}
+                alt={product.name}
+                className="h-[520px] md:h-[720px] w-full object-cover"
+              />
+            </div>
+
+            {galleryImages.length > 1 && (
+              <div className="grid grid-cols-4 gap-3 mt-4">
+                {galleryImages.map((img: string, index: number) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImage(img)}
+                    className={`rounded-xl md:rounded-2xl overflow-hidden border-2 transition ${
+                      selectedImage === img
+                        ? "border-[#C8A96B]"
+                        : "border-transparent"
+                    }`}
+                  >
+                    <img
+                      src={img}
+                      alt={`Product image ${index + 1}`}
+                      className="h-24 md:h-32 w-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="bg-white rounded-2xl md:rounded-[2rem] shadow-lg md:shadow-xl p-5 md:p-10 border border-[#C8A96B]/20">
@@ -105,6 +144,24 @@ export default function ProductDetailPage() {
                   {product.old_price}
                 </span>
               )}
+            </div>
+
+            <div className="mt-8 grid grid-cols-2 gap-3 text-sm">
+              <div className="bg-[#FAF7F2] rounded-2xl p-4 border border-[#C8A96B]/20">
+                ✅ Premium Fabric
+              </div>
+
+              <div className="bg-[#FAF7F2] rounded-2xl p-4 border border-[#C8A96B]/20">
+                🚚 Fast Delivery
+              </div>
+
+              <div className="bg-[#FAF7F2] rounded-2xl p-4 border border-[#C8A96B]/20">
+                🛒 WhatsApp Order
+              </div>
+
+              <div className="bg-[#FAF7F2] rounded-2xl p-4 border border-[#C8A96B]/20">
+                💎 Luxury Wear
+              </div>
             </div>
 
             <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4">
@@ -149,6 +206,8 @@ export default function ProductDetailPage() {
           </Link>
         </div>
       </div>
+
+      <Footer />
     </main>
   );
 }
