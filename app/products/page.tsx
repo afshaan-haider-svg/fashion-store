@@ -1,13 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Navbar from "../../components/Navbar";
 import { supabase } from "../../lib/supabase";
 import Footer from "../../components/Footer";
 
+type Product = {
+  id: number | string;
+  name?: string;
+  product_code?: string;
+  category?: string;
+  image_url?: string;
+  badge?: string;
+  brand?: string;
+  price?: string;
+  old_price?: string;
+  description?: string;
+};
+
 export default function ProductsPage() {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("All");
 
   useEffect(() => {
     fetchProducts();
@@ -26,6 +41,20 @@ export default function ProductsPage() {
 
     setProducts(data || []);
   };
+
+  const filteredProducts = useMemo(() => {
+  return products.filter((item) => {
+    const matchesSearch =
+      item.name?.toLowerCase().includes(search.toLowerCase()) ||
+      item.product_code?.toLowerCase().includes(search.toLowerCase());
+
+    const matchesCategory =
+      category === "All" ||
+      item.category?.toLowerCase() === category.toLowerCase();
+
+    return matchesSearch && matchesCategory;
+  });
+}, [products, search, category]);
 
   return (
     <main className="min-h-screen bg-[#FAF7F2] text-[#1E1E1E] pb-20 md:pb-0">
@@ -64,9 +93,38 @@ export default function ProductsPage() {
         </div>
       </section>
 
+      <section className="bg-white border-b border-[#C8A96B]/10 sticky top-[82px] md:top-[90px] z-30">
+  <div className="max-w-7xl mx-auto px-3 md:px-8 py-4 flex flex-col md:flex-row gap-4 md:items-center justify-between">
+
+    <input
+      type="text"
+      placeholder="Search products..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="w-full md:w-[350px] border border-[#C8A96B]/20 bg-[#FAF7F2] px-5 py-4 rounded-full outline-none"
+    />
+
+    <div className="flex gap-3 overflow-x-auto pb-1">
+      {["All", "2 Piece", "3 Piece"].map((cat) => (
+        <button
+          key={cat}
+          onClick={() => setCategory(cat)}
+          className={`px-5 py-3 rounded-full text-sm font-semibold whitespace-nowrap transition ${
+            category === cat
+              ? "bg-[#1E1E1E] text-white"
+              : "bg-[#F1E7D8] text-[#1E1E1E]"
+          }`}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
+
       <section className="px-3 md:px-8 py-6 md:py-20">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-10 max-w-7xl mx-auto">
-          {products.map((item) => (
+          {filteredProducts.map((item) => (
             <div
               key={item.id}
               className="bg-white rounded-xl md:rounded-[2rem] overflow-hidden shadow-sm md:shadow-lg border border-[#C8A96B]/20 relative"
