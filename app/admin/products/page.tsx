@@ -17,12 +17,14 @@ export default function AdminProductsPage() {
   }, []);
 
   const checkAdminSession = async () => {
-    const { data } = await supabase.auth.getSession();
+    const {
+  data: { user },
+} = await supabase.auth.getUser();
 
-    if (!data.session) {
-      router.push("/admin/login");
-      return;
-    }
+if (!user) {
+  router.push("/admin/login");
+  return;
+}
 
     setCheckingAuth(false);
     fetchProducts();
