@@ -214,12 +214,6 @@ export default function ProductsPage() {
                   )}
 
                   <div className="absolute right-2 bottom-2 flex flex-col gap-2">
-                    <Link
-  href={`/products/${item.id}`}
-  className="bg-white text-[#1E1E1E] text-xs md:text-sm font-bold px-4 py-3 rounded-full shadow-lg border border-[#C8A96B]/20 hover:bg-[#C8A96B] hover:text-white transition"
->
-  View Detail
-</Link>
 
                     <a
                       href={`https://wa.me/923057792102?text=Hello, I want to order:%0AProduct: ${item.name}%0ACode: ${item.product_code || "N/A"}%0ABrand: ${item.brand || "The Libas Studio"}%0APrice: ${item.price}`}
@@ -248,6 +242,13 @@ export default function ProductsPage() {
                   <p className="hidden md:block mt-4 text-[#6b665f] leading-7 line-clamp-3">
                     {item.description}
                   </p>
+                  
+                  <Link
+  href={`/products/${item.id}`}
+  className="mt-4 inline-block w-full text-center bg-[#1E1E1E] text-white py-3 rounded-full font-semibold hover:bg-[#C8A96B] transition"
+>
+  View Detail
+</Link>
 
                   <div className="mt-3 md:mt-5 flex flex-col md:flex-row md:items-center justify-center md:justify-start">
                     <span className="text-lg md:text-3xl font-extrabold text-[#1E1E1E]">
