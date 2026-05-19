@@ -215,12 +215,11 @@ export default function ProductsPage() {
 
                   <div className="absolute right-2 bottom-2 flex flex-col gap-2">
                     <Link
-                      href={`/products/${item.id}`}
-                      className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-white shadow-lg flex items-center justify-center text-lg hover:bg-[#C8A96B] transition"
-                      title="View Details"
-                    >
-                      👁
-                    </Link>
+  href={`/products/${item.id}`}
+  className="bg-white text-[#1E1E1E] text-xs md:text-sm font-bold px-4 py-3 rounded-full shadow-lg border border-[#C8A96B]/20 hover:bg-[#C8A96B] hover:text-white transition"
+>
+  View Detail
+</Link>
 
                     <a
                       href={`https://wa.me/923057792102?text=Hello, I want to order:%0AProduct: ${item.name}%0ACode: ${item.product_code || "N/A"}%0ABrand: ${item.brand || "The Libas Studio"}%0APrice: ${item.price}`}
