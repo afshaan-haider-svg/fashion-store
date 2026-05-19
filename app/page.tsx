@@ -55,7 +55,7 @@ export default function Home() {
     <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
       <Link
   href="/products"
-  className="flex items-center justify-center rounded-[30px] bg-gradient-to-r from-[#C8A96B] via-[#E5D3A1] to-[#C8A96B] shadow-2xl px-5 py-3 border border-white/40 min-h-[140px]"
+  className="flex items-center justify-center rounded-[30px] bg-gradient-to-r from-[#C8A96B] via-[#E5D3A1] to-[#C8A96B] shadow-2xl px-4 py-2 border border-white/40 min-h-[120px]"
 >
   <div className="text-center">
   <p className="text-white text-[10px] tracking-[0.25em] uppercase font-semibold">
