@@ -54,11 +54,19 @@ export default function Home() {
   <div className="px-4 py-5 bg-[#FAF7F2]">
     <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
       <Link
-        href="/products"
-        className="text-center bg-[#C8A96B] text-[#1E1E1E] px-4 py-3 rounded-full text-sm font-bold shadow-md"
-      >
-        Shop Collection
-      </Link>
+  href="/products"
+  className="flex items-center justify-center rounded-[30px] bg-gradient-to-r from-[#C8A96B] via-[#E5D3A1] to-[#C8A96B] shadow-2xl px-6 py-4 border border-white/40 min-h-[170px]"
+>
+  <div className="text-center">
+    <p className="text-white text-[11px] tracking-[0.3em] uppercase font-semibold">
+      The Libas Studio
+    </p>
+
+    <p className="text-[#1E1E1E] text-2xl font-extrabold mt-3">
+      Shop Collection
+    </p>
+  </div>
+</Link>
 
       <div className="flex items-center justify-center rounded-[20px] bg-gradient-to-r from-[#C8A96B] via-[#E5D3A1] to-[#C8A96B] shadow-2xl px-6 py-4 border border-white/40">
   <div className="text-center">
