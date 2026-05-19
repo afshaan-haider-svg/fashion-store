@@ -202,12 +202,6 @@ export default function Home() {
                 </Link>
 
                 <div className="absolute right-2 bottom-2 flex flex-col gap-2 md:hidden">
-                  <Link
-                    href={`/products/${item.id}`}
-                    className="h-10 w-10 rounded-full bg-white shadow-lg flex items-center justify-center"
-                  >
-                    👁
-                  </Link>
 
                   <a
                     href={`https://wa.me/923057792102?text=Hello, I want to order:%0AProduct: ${item.name}%0ACode: ${item.product_code || "N/A"}%0ABrand: ${item.brand || "The Libas Studio"}%0APrice: ${item.price}`}
@@ -233,6 +227,12 @@ export default function Home() {
                 </p>
 
                 <div className="mt-3 md:mt-5 flex flex-col md:flex-row md:items-center justify-center md:justify-start">
+                  <Link
+  href={`/products/${product.id}`}
+  className="mt-4 inline-block w-full text-center bg-[#1E1E1E] text-white py-3 rounded-full font-semibold hover:bg-[#C8A96B] transition"
+>
+  View Detail
+</Link>
                   <span className="text-lg md:text-3xl font-extrabold">
                     {item.price}
                   </span>
