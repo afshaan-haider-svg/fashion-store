@@ -55,17 +55,22 @@ export default function Home() {
     <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
       <Link
   href="/products"
-  className="flex items-center justify-center rounded-[30px] bg-gradient-to-r from-[#C8A96B] via-[#E5D3A1] to-[#C8A96B] shadow-2xl px-6 py-4 border border-white/40 min-h-[170px]"
+  className="flex items-center justify-center rounded-[30px] bg-gradient-to-r from-[#C8A96B] via-[#E5D3A1] to-[#C8A96B] shadow-2xl px-5 py-3 border border-white/40 min-h-[140px]"
 >
   <div className="text-center">
-    <p className="text-white text-[11px] tracking-[0.3em] uppercase font-semibold">
-      The Libas Studio
-    </p>
+  <p className="text-white text-[10px] tracking-[0.25em] uppercase font-semibold">
+    The Libas Studio
+  </p>
 
-    <p className="text-[#1E1E1E] text-2xl font-extrabold mt-3">
-      Shop Collection
-    </p>
-  </div>
+  <p className="text-[#1E1E1E] text-2xl font-extrabold mt-3 leading-tight">
+    Shop Collection
+  </p>
+
+  <p className="text-[#5f5a52] text-sm mt-2 font-semibold">
+    Click Here
+  </p>
+</div>
+
 </Link>
 
       <div className="flex items-center justify-center rounded-[20px] bg-gradient-to-r from-[#C8A96B] via-[#E5D3A1] to-[#C8A96B] shadow-2xl px-6 py-4 border border-white/40">
