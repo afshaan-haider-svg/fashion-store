@@ -60,10 +60,16 @@ export default function Home() {
         Shop Collection
       </Link>
 
-      <div className="flex items-center justify-center rounded-full bg-white/80 backdrop-blur-md shadow-lg px-5 py-4">
-  <p className="text-[#1E1E1E] text-sm md:text-lg font-semibold text-center">
-    آپ کا بھروسہ، ہماری امانت
-  </p>
+      <div className="flex items-center justify-center rounded-[20px] bg-gradient-to-r from-[#C8A96B] via-[#E5D3A1] to-[#C8A96B] shadow-2xl px-6 py-4 border border-white/40">
+  <div className="text-center">
+    <p className="text-white text-[11px] tracking-[0.3em] uppercase font-semibold">
+      The Libas Studio
+    </p>
+
+    <p className="text-[#1E1E1E] text-lg md:text-xl font-extrabold mt-1">
+      آپ کا بھروسہ، ہماری امانت
+    </p>
+  </div>
 </div>
     </div>
   </div>
