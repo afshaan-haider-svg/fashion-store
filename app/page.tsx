@@ -228,11 +228,11 @@ export default function Home() {
 
                 <div className="mt-3 md:mt-5 flex flex-col md:flex-row md:items-center justify-center md:justify-start">
                   <Link
-  href={`/products/${product.id}`}
-  className="mt-4 inline-block w-full text-center bg-[#1E1E1E] text-white py-3 rounded-full font-semibold hover:bg-[#C8A96B] transition"
->
-  View Detail
-</Link>
+                    href={`/products/${item.id}`}
+                    className="mt-4 inline-block w-full text-center bg-[#1E1E1E] text-white py-3 rounded-full font-semibold hover:bg-[#C8A96B] transition"
+                  >
+                    View Detail
+                  </Link>
                   <span className="text-lg md:text-3xl font-extrabold">
                     {item.price}
                   </span>
