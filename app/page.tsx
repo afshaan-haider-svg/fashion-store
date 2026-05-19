@@ -60,13 +60,11 @@ export default function Home() {
         Shop Collection
       </Link>
 
-      <a
-        href="https://wa.me/923057792102"
-        target="_blank"
-        className="text-center bg-green-600 text-white px-4 py-3 rounded-full text-sm font-bold shadow-md"
-      >
-        WhatsApp Order
-      </a>
+      <div className="flex items-center justify-center rounded-full bg-white/80 backdrop-blur-md shadow-lg px-5 py-4">
+  <p className="text-[#1E1E1E] text-sm md:text-lg font-semibold text-center">
+    آپ کا بھروسہ، ہماری امانت
+  </p>
+</div>
     </div>
   </div>
 </section>
@@ -75,7 +73,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-3 md:px-8 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-8">
           {[
             ["🚚", "Fast Delivery"],
-            ["✨", "Luxury Lawn"],
+            ["🔄", "7 Days Easy Return & Exchange Policy"],
             ["💎", "Premium Quality"],
             ["💖", "Elegant Fashion"],
           ].map((item, index) => (
