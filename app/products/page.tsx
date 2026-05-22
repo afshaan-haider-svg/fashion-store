@@ -238,7 +238,9 @@ export default function ProductsPage() {
                   <p className="mt-2 text-[11px] md:text-sm text-[#5f5a52]">
                     Code: {item.product_code || "N/A"}
                   </p>
-
+                  <p className="mt-2 text-[11px] md:text-sm text-green-700 font-semibold">
+  ✔ Quality & Fabric Guarantee
+</p> 
                   <p className="hidden md:block mt-4 text-[#6b665f] leading-7 line-clamp-3">
                     {item.description}
                   </p>
